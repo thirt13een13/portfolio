@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# ─── Configuration ────────────────────────────────────────────────────────────
+# ─── Configurations ────────────────────────────────────────────────────────────
 # Railway injects DATABASE_URL automatically; fallback to SQLite for local dev
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///portfolio.db")
 
