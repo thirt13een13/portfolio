@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Alex Kimani — Full-Stack Developer{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Available for work</div>
+    <h1 class="hero-title">
+      I build things<br>
+      <span class="hero-accent">for the web.</span>
+    </h1>
+    <p class="hero-sub">
+      Full-stack developer specializing in Python, Flask, and cloud-native architectures.
+      I turn complex problems into clean, scalable solutions.
+    </p>
+    <div class="hero-cta">
+      <a href="{{ url_for('projects') }}" class="btn btn-primary">View My Work</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Years Exp.</span></div>
+    <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Projects</span></div>
+    <div class="stat"><span class="stat-num">12</span><span class="stat-label">Clients</span></div>
+  </div>
+</section>
+
+<!-- ── Skills ────────────────────────────────────────────────────────────────── -->
+<section class="section skills-section">
+  <div class="container">
+    <h2 class="section-title">Skills & Tools</h2>
+    <div class="skills-grid">
+      {% set skills = [
+        ("Backend","Python · Flask · FastAPI · Node.js · REST APIs"),
+        ("Frontend","HTML5 · CSS3 · JavaScript · React · Tailwind"),
+        ("Database","PostgreSQL · MySQL · Redis · SQLAlchemy · ORM"),
+        ("DevOps","Docker · Railway · GitHub Actions · CI/CD · Linux"),
+        ("Cloud","AWS (EC2/S3/RDS) · Heroku · Vercel · Cloudflare"),
+        ("Other","Git · Agile · Figma · Stripe API · JWT Auth")
+      ] %}
+      {% for name, desc in skills %}
+      <div class="skill-card">
+        <h3 class="skill-name">{{ name }}</h3>
+        <p class="skill-desc">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Projects ─────────────────────────────────────────────────────── -->
+<section class="section projects-preview">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Featured Projects</h2>
+      <a href="{{ url_for('projects') }}" class="see-all">See all →</a>
+    </div>
+    <div class="cards-grid">
+      {% for project in projects %}
+      <article class="project-card">
+        <div class="card-cat">{{ project.category }}</div>
+        <h3 class="card-title">{{ project.title }}</h3>
+        <p class="card-desc">{{ project.description[:120] }}…</p>
+        <div class="card-stack">
+          {% for tech in project.tech_stack.split(',')[:3] %}
+          <span class="tag">{{ tech.strip() }}</span>
+          {% endfor %}
+        </div>
+        <div class="card-links">
+          {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" class="card-link">GitHub</a>{% endif %}
+          {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" class="card-link card-link-live">Live ↗</a>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── About strip ───────────────────────────────────────────────────────────── -->
+<section class="about-strip">
+  <div class="container about-inner">
+    <div>
+      <h2 class="section-title" style="color:var(--bg)">About Me</h2>
+      <p style="color:var(--bg-soft);max-width:540px;line-height:1.75">
+        Based in Kampala, Uganda. I've been writing code professionally since 2020, working
+        with startups and enterprises across fintech, health-tech, and e-commerce. When I'm
+        not coding I'm hiking or tinkering with Raspberry Pi projects.
+      </p>
+      <a href="{{ url_for('contact') }}" class="btn btn-primary" style="margin-top:1.5rem">Hire Me</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

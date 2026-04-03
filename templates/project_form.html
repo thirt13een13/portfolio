@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} Project — Alex Kimani{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">{{ action }} Project</h1>
+    <p class="page-sub">{% if project %}Update details for "{{ project.title }}"{% else %}Add a new project to your portfolio{% endif %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-container">
+    <form method="POST" class="project-form">
+
+      <div class="form-group">
+        <label for="title">Project Title *</label>
+        <input type="text" id="title" name="title" required
+               value="{{ project.title if project else '' }}"
+               placeholder="e.g. Real-Time Analytics Dashboard">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea id="description" name="description" required rows="4"
+                  placeholder="What does this project do? What problem does it solve?">{{ project.description if project else '' }}</textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tech_stack">Tech Stack</label>
+          <input type="text" id="tech_stack" name="tech_stack"
+                 value="{{ project.tech_stack if project else '' }}"
+                 placeholder="Python, Flask, PostgreSQL (comma-separated)">
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            {% for cat in ["Web","Full-Stack","Mobile","AI/ML","Data","DevOps","Other"] %}
+            <option value="{{ cat }}" {% if project and project.category == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="github_url">GitHub URL</label>
+          <input type="url" id="github_url" name="github_url"
+                 value="{{ project.github_url if project else '' }}"
+                 placeholder="https://github.com/you/repo">
+        </div>
+
+        <div class="form-group">
+          <label for="live_url">Live URL</label>
+          <input type="url" id="live_url" name="live_url"
+                 value="{{ project.live_url if project else '' }}"
+                 placeholder="https://yourproject.railway.app">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a href="{{ url_for('projects') }}" class="btn btn-ghost">Cancel</a>
+        <button type="submit" class="btn btn-primary">{{ action }} Project</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

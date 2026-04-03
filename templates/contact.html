@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Contact — Alex Kimani{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">Get in Touch</h1>
+    <p class="page-sub">Have a project in mind? I'd love to hear about it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-layout">
+
+    <div class="contact-info">
+      <h2>Let's work together</h2>
+      <p>I'm currently available for freelance projects and full-time opportunities.
+         Whether you need a web app, API, or cloud deployment — let's talk.</p>
+      <div class="contact-items">
+        <div class="contact-item"><span class="ci-icon">✉</span><span>alex@example.com</span></div>
+        <div class="contact-item"><span class="ci-icon">📍</span><span>Kampala, Uganda</span></div>
+        <div class="contact-item"><span class="ci-icon">⏱</span><span>Typically replies within 24h</span></div>
+      </div>
+    </div>
+
+    <form method="POST" class="project-form contact-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Your Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="jane@company.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Project inquiry, collaboration, etc.">
+      </div>
+
+      <div class="form-group">
+        <label for="body">Message *</label>
+        <textarea id="body" name="body" required rows="6" placeholder="Tell me about your project…"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Send Message →</button>
+      </div>
+    </form>
+
+  </div>
+</section>
+{% endblock %}

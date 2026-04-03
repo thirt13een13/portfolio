@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Projects — Alex Kimani{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">Projects</h1>
+    <p class="page-sub">A collection of things I've built, shipped, and learned from.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      {% for cat in categories %}
+      <a href="{{ url_for('projects', category=cat) }}"
+         class="filter-tab {% if cat == active %}filter-tab-active{% endif %}">{{ cat }}</a>
+      {% endfor %}
+    </div>
+
+    <!-- Grid -->
+    {% if projects %}
+    <div class="cards-grid cards-grid-full">
+      {% for project in projects %}
+      <article class="project-card">
+        <div class="card-header">
+          <div class="card-cat">{{ project.category }}</div>
+          <div class="card-actions">
+            <a href="{{ url_for('edit_project', project_id=project.id) }}" class="card-action-btn edit-btn" title="Edit">✎</a>
+            <form action="{{ url_for('delete_project', project_id=project.id) }}" method="POST"
+                  onsubmit="return confirm('Delete \'{{ project.title }}\'?')" style="display:inline">
+              <button class="card-action-btn del-btn" title="Delete">✕</button>
+            </form>
+          </div>
+        </div>
+        <h3 class="card-title">{{ project.title }}</h3>
+        <p class="card-desc">{{ project.description }}</p>
+        <div class="card-stack">
+          {% for tech in project.tech_stack.split(',') %}
+          <span class="tag">{{ tech.strip() }}</span>
+          {% endfor %}
+        </div>
+        <div class="card-links">
+          {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" class="card-link">GitHub</a>{% endif %}
+          {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" class="card-link card-link-live">Live ↗</a>{% endif %}
+        </div>
+        <div class="card-meta">Added {{ project.created_at.strftime('%b %d, %Y') }}</div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>No projects in this category yet.</p>
+      <a href="{{ url_for('new_project') }}" class="btn btn-primary">Add One</a>
+    </div>
+    {% endif %}
+
+    <div style="text-align:center;margin-top:3rem">
+      <a href="{{ url_for('new_project') }}" class="btn btn-primary">+ Add New Project</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

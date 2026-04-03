@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Alex Kimani — Portfolio{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="{{ url_for('index') }}" class="nav-logo">AK<span class="dot">.</span></a>
+  <ul class="nav-links">
+    <li><a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+    <li><a href="{{ url_for('projects') }}" class="{% if request.endpoint in ['projects','new_project','edit_project'] %}active{% endif %}">Projects</a></li>
+    <li><a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">Contact</a></li>
+  </ul>
+  <a href="{{ url_for('new_project') }}" class="btn btn-sm">+ Add Project</a>
+</nav>
+
+<!-- ── Flash messages ───────────────────────────────────────────────────────── -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- ── Main ─────────────────────────────────────────────────────────────────── -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <p>© 2025 Alex Kimani &nbsp;·&nbsp; Built with Flask &amp; PostgreSQL &nbsp;·&nbsp; Deployed on Railway</p>
+  <div class="footer-links">
+    <a href="/api/projects" target="_blank">REST API</a>
+    <a href="/health" target="_blank">Health Check</a>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
